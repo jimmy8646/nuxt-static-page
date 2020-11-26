@@ -2,30 +2,16 @@
   <div class="container">
     <div>
       <h1 class="title">floatingdreams</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+      <Section10 />
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+import Section10 from '~/blocks/section-10'
+export default {
+  components: {
+    Section10,
+  },
+}
 </script>
-
-<style></style>

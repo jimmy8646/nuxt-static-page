@@ -1,7 +1,8 @@
 <template>
-  <div class="main">
+  <div>
+    <Loading v-if="loadingFinish" @loadingFinishFrom="loadingFinish = false" />
     <Header />
-    <div class="full-height">
+    <div class="overflow-x">
       <nuxt />
     </div>
     <Footer />
@@ -11,23 +12,37 @@
 <script>
 import Header from '~/components/Header'
 import Footer from '~/components/Footer'
+import Loading from '~/components/Loading'
 
 export default {
   components: {
     Header,
     Footer,
+    Loading,
+  },
+  data() {
+    return {
+      loadingFinish: true,
+    }
   },
   head() {
     return {
       bodyAttrs: {
-        class: this.$store.state.body.isFixed ? 'scroll-lock' : '',
-      },
-      htmlAttrs: {
-        class: this.$store.state.body.isFixed ? 'scroll-lock' : '',
+        class: this.$store.state.body.isFixed ? 'is-fixed' : '',
       },
     }
   },
 }
 </script>
 
-<style></style>
+<style>
+.is-fixed {
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.overflow-x {
+  position: relative;
+  overflow-x: hidden;
+}
+</style>
