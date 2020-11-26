@@ -1,0 +1,207 @@
+$xs: 320px;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1920px;
+
+// 清除 float
+@mixin clearfix {
+  &:before,
+  &:after {
+    content: ' ';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+// 讓文字保持指定行數，超過則不顯示
+@mixin text-overflow($lines: 1) {
+  & {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    @if $lines == 1 {
+      white-space: nowrap;
+    }
+    @if $lines != 1 {
+      display: -webkit-box;
+      -webkit-line-clamp: $lines;
+      -webkit-box-orient: vertical;
+    }
+  }
+}
+
+// 讓形狀物件游標移上去時看起來可以點擊，並且預防選取、拖移到物件
+@mixin clickable {
+  & {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
+}
+
+@mixin draggable {
+  & {
+    cursor: grab;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
+}
+
+// 讓純文字物件看起來是可以點擊的樣子
+@mixin linkable {
+  & {
+    cursor: pointer;
+    text-decoration: none;
+    // color: $link-color;
+    &:hover {
+      opacity: 0.8;
+      // color: $link-color-hover;
+    }
+  }
+}
+
+@mixin unselectable {
+  & {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
+}
+
+// 讓物件看起來不可點擊
+@mixin notallowed {
+  & {
+    cursor: not-allowed;
+  }
+}
+
+@function to-per-xxl($size) {
+  @return $size / $xl * 100%;
+}
+
+@function to-vw-xxl($size) {
+    @return $size / $xl * 100vw;
+}
+
+@function to-vw($size) {
+  @return $size / $xl * 100vw;
+}
+
+@function to-vw-xl($size) {
+  @return $size / $xl * 100vw;
+}
+
+@function to-vw-lg($size) {
+  @return $size / $lg * 100vw;
+}
+
+@function to-vw-md($size) {
+  @return $size / $md * 100vw;
+}
+
+@function to-vw-sm($size) {
+  @return $size / $sm * 100vw;
+}
+
+@function to-vw-xs($size) {
+  @return $size / $xs * 100vw;
+}
+
+@function to-per-xs($size) {
+  @return $size / $xs * 100%;
+}
+
+@mixin at-xs {
+  @media screen and (min-width: $xs) {
+    @content;
+  }
+}
+
+@mixin at-sm {
+  @media screen and (min-width: $sm) {
+    @content;
+  }
+}
+
+@mixin at-md {
+  @media screen and (min-width: $md) {
+    @content;
+  }
+}
+
+@mixin at-lg {
+  @media screen and (min-width: $lg) {
+    @content;
+  }
+}
+
+@mixin at-xl {
+  @media screen and (min-width: $xl) {
+    @content;
+  }
+}
+
+@mixin vw-breakpoint($prop: null, $xl: null, $lg: null, $md: null, $sm: null, $xs: null) {
+
+  @if $xl {
+    #{$prop}: $xl;
+    @include at-xl {
+      #{$prop}: to-vw-xl($xl);
+    }
+  }
+
+  @if $lg {
+    @include at-lg {
+      #{$prop}: to-vw-lg($lg)
+    }
+  }
+
+  @if $md {
+    @include at-md {
+      #{$prop}: to-vw-md($md)
+    }
+  }
+
+  @if $sm {
+    @include at-sm {
+      #{$prop}: to-vw-sm($sm)
+    }
+  }
+
+  @if $xs {
+    @include at-xs {
+      #{$prop}: to-vw-xs($xs)
+    }
+  }
+}
+
+
+%linkable {
+  @include linkable;
+}
+
+%clickable {
+  @include clickable;
+}
+
+%draggable {
+  @include draggable;
+}
+
+%clearfix {
+  @include clearfix;
+}
+
+%notallowed {
+  @include notallowed;
+}
+
+%unselectable {
+  @include unselectable;
+}
